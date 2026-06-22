@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { TodoState } from "./types.ts";
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import type { Todo, TodoState } from "./types.ts";
 
 const initialState: TodoState = {
   todos: [
@@ -13,7 +13,17 @@ const initialState: TodoState = {
 const todoSlice = createSlice({
   name: 'todo',
   initialState,
-  reducers: {},
+  reducers: {
+    localAddTodo: (state, action: PayloadAction<string>) => {
+      const newTodo: Todo = {
+        id: Date.now().toString(),
+        title: action.payload,
+        completed: false,
+      };
+      state.todos.push(newTodo);
+    },
+  },
 });
 
+export const {localAddTodo} = todoSlice.actions;
 export const todoReducer = todoSlice.reducer;
