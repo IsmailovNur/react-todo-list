@@ -17,7 +17,7 @@ const TodoList: FC<TodoListProps> = ({list}) => {
           <TodoItem key={todo.id} todo={todo} />
         ))
       ) : (
-        <div className={styles.emptyState}>No tasks found. Enjoy your day!</div>
+        <div className={styles.emptyState}>No tasks found...</div>
       )}
     </div>
   );

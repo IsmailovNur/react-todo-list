@@ -1,16 +1,21 @@
-import { Typography } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import { AddTodoForm } from "../../features/AddTodoForm/AddTodoForm.tsx";
-import { useSelector } from "react-redux";
-import type { RootState } from "../../app/store.ts";
 import TodoList from "../../features/TodoList/TodoList.tsx";
-
+import type { AppDispatch, RootState } from "../../app/store.ts";
+import { fetchTodos } from "../../entities/todo/todoSlice.ts";
+import { Typography } from "antd";
 import styles from "./MainPage.module.css";
 
 const {Title} = Typography;
 
 const MainPage = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const {todos} = useSelector((state: RootState) => state.todo);
 
-  const todos = useSelector((state: RootState) => state.todo.todos);
+  useEffect(() => {
+    dispatch(fetchTodos());
+  }, [dispatch]);
 
   return (
     <div className={styles.mainContainer}>
