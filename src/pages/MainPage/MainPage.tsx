@@ -4,14 +4,20 @@ import { AddTodoForm } from "../../features/AddTodoForm/AddTodoForm.tsx";
 import TodoList from "../../features/TodoList/TodoList.tsx";
 import type { AppDispatch, RootState } from "../../app/store.ts";
 import { fetchTodos } from "../../entities/todo/todoSlice.ts";
-import { Typography } from "antd";
+import { Alert, Typography } from "antd";
+import Spinner from "../../shared/Spinner/Spinner.tsx";
+
 import styles from "./MainPage.module.css";
 
 const {Title} = Typography;
 
 const MainPage = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const {todos} = useSelector((state: RootState) => state.todo);
+  const {
+    todos,
+    isLoading,
+    error
+  } = useSelector((state: RootState) => state.todo);
 
   useEffect(() => {
     dispatch(fetchTodos());
@@ -21,7 +27,15 @@ const MainPage = () => {
     <div className={styles.mainContainer}>
       <Title className={styles.title} level={1}>Todo App</Title>
       <AddTodoForm />
-      <TodoList list={todos} />
+
+      {error &&
+        <Alert title={error} type="error" showIcon className={styles.errorMsg} />}
+
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <TodoList list={todos} />
+      )}
     </div>
   );
 };

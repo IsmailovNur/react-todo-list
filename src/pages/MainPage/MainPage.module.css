@@ -6,3 +6,8 @@
 .title {
   text-align: center;
 }
+
+.errorMsg {
+  padding: 25px;
+  font-size: 24px;
+}

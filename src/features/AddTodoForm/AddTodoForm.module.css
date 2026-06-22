@@ -6,4 +6,10 @@
 
 .inputField {
   flex: 1;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.formBtn {
+  height: auto;
 }

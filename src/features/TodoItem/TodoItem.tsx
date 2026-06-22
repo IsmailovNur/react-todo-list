@@ -2,6 +2,9 @@ import type { FC } from "react";
 import { Button, Checkbox } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import type { Todo } from "../../entities/todo/types.ts";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../app/store.ts";
+import { deleteTodo, toggleTodo } from "../../entities/todo/todoSlice.ts";
 
 import styles from './TodoItem.module.css';
 
@@ -10,14 +13,13 @@ interface TodoItemProps {
 }
 
 export const TodoItem: FC<TodoItemProps> = ({todo}) => {
+  const dispatch = useDispatch<AppDispatch>();
 
   return (
     <div className={styles.itemCard}>
       <Checkbox
         checked={todo.completed}
-        onClick={() => {
-          console.log('toggle')
-        }}
+        onChange={() => dispatch(toggleTodo(todo))}
       >
         <span className={`${todo.completed ? styles.completedText : ''}`}>
           {todo.title}
@@ -26,12 +28,10 @@ export const TodoItem: FC<TodoItemProps> = ({todo}) => {
 
       <Button
         className={styles.deleteBtn}
-        type="text"
         danger
         icon={<DeleteOutlined />}
-        onClick={() => {
-          console.log('delete')
-        }}
+        style={{paddingInline: '14px'}}
+        onClick={() => dispatch(deleteTodo(todo.id))}
       />
     </div>
   );

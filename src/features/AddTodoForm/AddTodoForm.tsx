@@ -29,12 +29,14 @@ export const AddTodoForm: FC = () => {
     <form onSubmit={handleSubmit} className={styles.formWrapper}>
       <Input
         className={styles.inputField}
-        placeholder="Youre todo..."
+        placeholder="Your todo..."
         value={text}
         disabled={isLoading}
         onChange={(e) => setText(e.target.value)}
       />
+
       <Button
+        className={styles.formBtn}
         type="primary"
         htmlType="submit"
         icon={<PlusOutlined />}
