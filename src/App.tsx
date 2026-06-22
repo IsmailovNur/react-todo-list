@@ -1,11 +1,13 @@
-import { Typography } from "antd";
+import { RouterProvider } from "react-router-dom";
+
+import { router } from "./routing/router.tsx";
+
 import './App.css';
 
-const {Title} = Typography;
 const App = () => {
   return (
     <div className="App">
-      <Title level={1}>Hello World!</Title>
+      <RouterProvider router={router} />
     </div>
   )
 }
